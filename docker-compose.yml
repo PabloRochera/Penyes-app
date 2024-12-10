@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: project-app
+    container_name: penyes-app
     ports:
       - "9000:9000"
     volumes:
@@ -17,7 +17,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: project-nginx
+    container_name: penyes-nginx
     ports:
       - "8080:80"
     volumes:
@@ -37,7 +37,7 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:
