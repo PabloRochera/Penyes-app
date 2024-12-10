@@ -1,35 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perfil</title>
-</head>
-<body>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Profile') }}
+        </h2>
+    </x-slot>
 
-    <main class="section">
-        <div class="container">
-            <header class="has-text-centered">
-                <h2 class="title is-3">{{ __('Perfil') }}</h2>
-            </header>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.update-profile-information-form')
+                </div>
+            </div>
 
-            <!-- Sección de actualización de información de perfil -->
-            <section class="box mt-5">
-                <h3 class="title is-4">{{ __('Actualizar Información del Perfil') }}</h3>
-            </section>
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.update-password-form')
+                </div>
+            </div>
 
-            <!-- Sección de actualización de contraseña -->
-            <section class="box mt-5">
-                <h3 class="title is-4">{{ __('Actualizar Contraseña') }}</h3>
-            </section>
-
-            <!-- Sección de eliminación de usuario -->
-            <section class="box mt-5">
-                <h3 class="title is-4">{{ __('Eliminar Cuenta') }}</h3>
-            </section>
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.delete-user-form')
+                </div>
+            </div>
         </div>
-    </main>
-
-   
-</body>
-</html>
+    </div>
+</x-app-layout>

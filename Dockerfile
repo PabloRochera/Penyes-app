@@ -1,5 +1,3 @@
-# Dockerfile para Laravel
-
 # Usar la imagen base de PHP con FPM
 FROM php:8.3-fpm
 
@@ -7,8 +5,9 @@ FROM php:8.3-fpm
 ARG user
 ARG uid
 RUN useradd -m -u ${uid} -s /bin/bash ${user}
-# Instalar dependencias necesarias para pdo_mysql
-RUN apt-get update && apt-get install -y \
+
+# Actualizar APT, limpiar cachés y asegurarse de que los repositorios estén correctamente actualizados
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -21,10 +20,9 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libicu-dev \
     libxml2-dev \
-    && docker-php-ext-configure gd \
-    --with-freetype \
-    --with-jpeg \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl xml
+    libsqlite3-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl xml pdo_sqlite sqlite3
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -36,8 +34,8 @@ WORKDIR /var/www/html
 COPY . .
 
 # Asignar permisos
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
 
 # Exponer puerto para la app
 EXPOSE 9000
