@@ -9,10 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('crews', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('color');
+            $table->string('slogan')->nullable(); // El slogan es opcional
+            $table->integer('capacity');
+            $table->date('foundation');
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('crews');
     }
 };
